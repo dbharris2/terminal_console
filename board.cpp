@@ -44,13 +44,13 @@ void Board::render()
     for (int col = 0; col < _board[0].size(); col++)
     {
       if (row == 0)
-        std::cout << "w";
+        std::cout << "x";
       else if (row == _board.size() - 1)
         std::cout << "x";
       else if (col == 0)
-        std::cout << "y";
+        std::cout << "x";
       else if (col == _board[row].size() - 1)
-        std::cout << "z";
+        std::cout << "x";
       else
         std::cout << _board[row][col];
     }

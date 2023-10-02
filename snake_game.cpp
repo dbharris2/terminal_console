@@ -28,7 +28,7 @@ void SnakeGame::render()
     _isOver = true;
   }
 
-  _board->setItem(_fruit.y, _fruit.x, 'f');
+  _board->setItem(_fruit.y, _fruit.x, '*');
   auto weakBoard = std::weak_ptr<Board>(_board);
   _snake->forEach([&weakBoard](DMVec pos) -> void
                   { 
