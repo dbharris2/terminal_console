@@ -21,6 +21,7 @@ int main()
     }
     else if (selectedItem == 1) // Snake
     {
+      system("cls");
       SnakeGameFactory snakeGameFactory;
       snakeGameFactory.run();
     }

@@ -9,6 +9,7 @@ Menu::Menu()
 
 void Menu::render()
 {
+  system("cls");
   std::cout << "Welcome!" << std::endl;
   std::cout << "Choose an item:" << std::endl;
   std::cout << "0: Quit" << std::endl;

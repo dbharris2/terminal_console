@@ -29,22 +29,22 @@ void Snake::move(int direction)
   auto h = head();
   if (direction == 1)
   {
-    _position.erase(_position.begin());
+    _position.pop_front();
     _position.push_back({h.x, h.y - 1});
   }
   else if (direction == 2)
   {
-    _position.erase(_position.begin());
+    _position.pop_front();
     _position.push_back({h.x, h.y + 1});
   }
   else if (direction == 3)
   {
-    _position.erase(_position.begin());
+    _position.pop_front();
     _position.push_back({h.x - 1, h.y});
   }
   else if (direction == 4)
   {
-    _position.erase(_position.begin());
+    _position.pop_front();
     _position.push_back({h.x + 1, h.y});
   }
 }

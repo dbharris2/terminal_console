@@ -1,7 +1,7 @@
 #pragma once
 
 #include <functional>
-#include <vector>
+#include <deque>
 
 #include "dmvec.h"
 
@@ -15,5 +15,5 @@ public:
   void move(int direction);
 
 private:
-  std::vector<DMVec> _position;
+  std::deque<DMVec> _position;
 };

@@ -27,7 +27,7 @@ public:
 
 private:
   std::vector<std::vector<BoardPiece>> _board;
-  std::vector<std::vector<BoardPiece>> _emptyBoard;
+  std::vector<std::vector<BoardPiece>> _prevBoard;
 
-  void Board::_printBoardPiece(BoardPiece bp);
+  void Board::_printBoardPiece(BoardPiece bp, int row, int col);
 };
