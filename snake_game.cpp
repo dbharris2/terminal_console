@@ -28,13 +28,13 @@ void SnakeGame::render()
     _isOver = true;
   }
 
-  _board->setItem(_fruit.y, _fruit.x, '*');
+  _board->setItem(_fruit.y, _fruit.x, '*', 31);
   auto weakBoard = std::weak_ptr<Board>(_board);
   _snake->forEach([&weakBoard](DMVec pos) -> void
                   { 
                     auto strongBoard = weakBoard.lock();
-                    strongBoard->setItem(pos.y, pos.x, 'o'); });
-  _board->setItem(head.y, head.x, 's');
+                    strongBoard->setItem(pos.y, pos.x, 'o', 35); });
+  _board->setItem(head.y, head.x, 's', 35);
 
   _board->render();
 }

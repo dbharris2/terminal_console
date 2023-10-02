@@ -2,6 +2,18 @@
 
 #include <vector>
 
+typedef struct BoardPiece
+{
+  char ch;
+  int color;
+
+  bool operator==(const BoardPiece &v2) const
+  {
+    const BoardPiece &v1 = (*this);
+    return v1.ch == v2.ch && v1.color == v2.color;
+  }
+} BoardPiece;
+
 class Board
 {
 public:
@@ -9,11 +21,13 @@ public:
   void clear();
   int height();
   bool isOutOfBounds(int row, int col);
-  void setItem(int row, int col, char c);
+  void setItem(int row, int col, char c, int color = 0);
   void render();
   int width();
 
 private:
-  std::vector<std::vector<char>> _board;
-  std::vector<std::vector<char>> _emptyBoard;
+  std::vector<std::vector<BoardPiece>> _board;
+  std::vector<std::vector<BoardPiece>> _emptyBoard;
+
+  void Board::_printBoardPiece(BoardPiece bp);
 };

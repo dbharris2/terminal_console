@@ -1,12 +1,31 @@
 #include "board.h"
 
 #include <iostream>
+#include <string>
 #include <windows.h>
+
+#define CSI "\x1b["
+#define DEFAULT_ATTRIBUTES "\x1b[ 0m"
 
 Board::Board(int width, int height)
 {
-  _board.resize(height, std::vector<char>(width, ' '));
-  _emptyBoard.resize(height, std::vector<char>(width, ' '));
+  _emptyBoard.resize(height, std::vector<BoardPiece>(width, {' ', 0}));
+  for (int row = 0; row < _emptyBoard.size(); row++)
+  {
+    for (int col = 0; col < _emptyBoard[0].size(); col++)
+    {
+      bool isTop = row == 0;
+      bool isBottom = row == _emptyBoard.size() - 1;
+      bool isLeft = col == 0;
+      bool isRight = col == _emptyBoard[row].size() - 1;
+      if (isTop || isBottom || isLeft || isRight)
+      {
+        _emptyBoard[row][col].ch = 'x';
+        _emptyBoard[row][col].color = 32;
+      }
+    }
+    clear();
+  }
 }
 
 void Board::clear()
@@ -30,29 +49,23 @@ bool Board::isOutOfBounds(int row, int col)
   return false;
 }
 
-void Board::setItem(int row, int col, char c)
+void Board::setItem(int row, int col, char c, int color)
 {
-  _board[row][col] = c;
+  _board[row][col].ch = c;
+  _board[row][col].color = color;
 }
 
 void Board::render()
 {
-  system("cls"); // Clear the console
+  // system("cls"); // Clear the console
+  std::cout << CSI << "1;1H";
+  std::cout << CSI << "2J";
 
-  for (int row = 0; row < _board.size(); row++)
+  for (auto row : _board)
   {
-    for (int col = 0; col < _board[0].size(); col++)
+    for (auto piece : row)
     {
-      if (row == 0)
-        std::cout << "x";
-      else if (row == _board.size() - 1)
-        std::cout << "x";
-      else if (col == 0)
-        std::cout << "x";
-      else if (col == _board[row].size() - 1)
-        std::cout << "x";
-      else
-        std::cout << _board[row][col];
+      _printBoardPiece(piece);
     }
     std::cout << std::endl;
   }
@@ -62,4 +75,14 @@ void Board::render()
 int Board::width()
 {
   return _board[0].size() - 2;
+}
+
+void Board::_printBoardPiece(BoardPiece bp)
+{
+  // Without color - fast
+  // std::cout << bp.ch;
+
+  // With color - slow
+  std::cout << CSI << std::to_string(bp.color) + "m"
+            << bp.ch << DEFAULT_ATTRIBUTES;
 }
